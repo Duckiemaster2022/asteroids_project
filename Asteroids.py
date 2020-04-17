@@ -36,7 +36,7 @@ def shuttle_initialize(t):
 
 wn = make_window("limegreen", "Squares Everywhere!")
 shuttle = make_turtle("blue", 3, 3)
-asteroid = make_turtle("blue", 3, 3)
+asteroid = make_turtle("blue", 9, 3)
 
 
 asteroid_creator(asteroid)
