@@ -141,11 +141,11 @@ while True:
     y_cor_laser = laser.ycor()
     y_cor_shuttle = shuttle.ycor()
 
-    if y_cor_laser <= y_cor_20 and y_cor_laser >= y_cor_min_20 and \
-            x_cor_laser <= x_cor_20 and x_cor_laser >= x_cor_min_20:
-        asteroid.hideturtle()
-        asteroid_creator(asteroid)
-        laser.hideturtle()
+    if y_cor_laser <= y_cor_20 and y_cor_laser >= y_cor_min_20:
+        if x_cor_laser <= x_cor_20 and x_cor_laser >= x_cor_min_20:
+            asteroid.hideturtle()
+            asteroid_creator(asteroid)
+            laser.hideturtle()
 
     if y_cor_laser > y_cor_shuttle and y_cor_laser <= 300:
         laser.fd(5)
@@ -165,6 +165,3 @@ while True:
         break
 
     life_meter.write(life, font=("Arial", 10, "normal"))
-
-
-
