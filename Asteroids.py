@@ -77,36 +77,91 @@ def spaceship_moving_a():
     shuttle.setx(shuttle.xcor() - DELTAX)
 
 
-# logo(logo_t, logo_tu)
+def init_laser():
+    laser.shape("square")
+    laser.shapesize(0.2, 1)
+    laser.pu()
+    laser.seth(90)
+    laser.sety(shuttle.ycor())
+    laser.sety(shuttle.ycor())
 
-wn = make_window("limegreen", "Squares Everywhere!")
-shuttle = make_turtle("blue", 3, 3)
-asteroid = make_turtle("blue", 3, 9)
+
+def spaceship_laser():
+    laser.hideturtle()
+    laser.setx(shuttle.xcor())
+    laser.setx(shuttle.xcor())
+    laser.sety(shuttle.ycor())
+    laser.sety(shuttle.ycor())
+    laser.showturtle()
+    laser.fd(1)
+
+
+def init_life_meter():
+    life_meter.pu()
+    life_word_display.pu()
+    life_meter.setpos(-295, 300)
+    life_word_display.setpos(-338, 300)
+    life_word_display.write("Lives", font=("Arial", 11, "normal"))
+    life_word_display.setpos(-305, 300)
+    life_word_display.write(" : ", font=("Arial", 11, "normal"))
+
+
+wn = make_window("black", "Squares Everywhere!")
+shuttle = make_turtle("grey", 3, 5)
+asteroid = make_turtle("brown", 3, 1)
 logo_t = make_turtle("blue", 3, 3)
 logo_tu = make_turtle("blue", 3, 3)
-test = make_turtle("blue", 3, 3)
-DELTAX = 20
+life_meter = make_turtle("blue", 3, 3)
+laser = make_turtle("red", 1, 5)
+life_word_display = make_turtle("blue", 3, 3)
+DELTAX = 10
 
+
+logo(logo_t, logo_tu)
 asteroid_creator(asteroid)
 shuttle_initialize(shuttle)
+init_laser()
+init_life_meter()
 life = 3
 
-for i in range(2000):
+while True:
 
     wn.listen()
     wn.onkeypress(spaceship_moving_a, "a")
     wn.onkeypress(spaceship_moving_d, "d")
+    wn.onkeypress(spaceship_laser, "space")
 
     y_cor = asteroid.ycor()
+    y_cor_20 = asteroid.ycor() + 10
+    y_cor_min_20 = asteroid.ycor() - 10
+    x_cor_20 = asteroid.xcor() + 10
+    x_cor_min_20 = asteroid.xcor() - 10
+    x_cor_laser = laser.xcor()
+    y_cor_laser = laser.ycor()
+    y_cor_shuttle = shuttle.ycor()
+
+    if y_cor_laser <= y_cor_20 and y_cor_laser >= y_cor_min_20 and \
+            x_cor_laser <= x_cor_20 and x_cor_laser >= x_cor_min_20:
+        asteroid.hideturtle()
+        asteroid_creator(asteroid)
+        laser.hideturtle()
+
+    if y_cor_laser > y_cor_shuttle and y_cor_laser <= 300:
+        laser.fd(5)
+    else:
+        laser.hideturtle()
+
     if y_cor <= -300:
         asteroid_creator(asteroid)
         life -= 1
-
     else:
-        asteroid.fd(3)
+        asteroid.fd(1)
 
     if life == 0:
         print("gameover")
         break
+
+    life_meter.write(life, font=("Arial", 10, "normal"))
+
 
 wn.mainloop()
