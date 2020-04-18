@@ -1,5 +1,5 @@
-import turtle
 import random
+import turtle
 
 
 def reset_postion(t):
@@ -66,20 +66,18 @@ def shuttle_initialize(t):
     t.speed(3)
     t.penup()
     t.seth(90)
-    t.setpos(0, -300)
+    t.setpos(0, -250)
 
 
-def spaceship_moving_d(t):
-    x = t.xcor()
-    x -= 20
-    t.setx(x)
+def spaceship_moving_d():
+    shuttle.setx(shuttle.xcor() + DELTAX)
 
 
-def spaceship_moving_a(t):
-    x = t.xcor()
-    x += 20
-    t.setx(x)
+def spaceship_moving_a():
+    shuttle.setx(shuttle.xcor() - DELTAX)
 
+
+# logo(logo_t, logo_tu)
 
 wn = make_window("limegreen", "Squares Everywhere!")
 shuttle = make_turtle("blue", 3, 3)
@@ -87,22 +85,18 @@ asteroid = make_turtle("blue", 3, 9)
 logo_t = make_turtle("blue", 3, 3)
 logo_tu = make_turtle("blue", 3, 3)
 test = make_turtle("blue", 3, 3)
-
-
-# logo(logo_t, logo_tu)
-
+DELTAX = 20
 
 asteroid_creator(asteroid)
 shuttle_initialize(shuttle)
 life = 3
 
-
-wn.listen()
-wn.onkeypress(spaceship_moving_a(shuttle), "A")
-wn.onkeypress(spaceship_moving_d(shuttle), "D")
-
-
 for i in range(2000):
+
+    wn.listen()
+    wn.onkeypress(spaceship_moving_a, "a")
+    wn.onkeypress(spaceship_moving_d, "d")
+
     y_cor = asteroid.ycor()
     if y_cor <= -300:
         asteroid_creator(asteroid)
@@ -114,6 +108,5 @@ for i in range(2000):
     if life == 0:
         print("gameover")
         break
-
 
 wn.mainloop()
