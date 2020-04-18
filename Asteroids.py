@@ -52,6 +52,7 @@ def make_window(colr, ttle):
 
 
 def asteroid_creator(t):
+    asteroid.shape("circle")
     asteroid.showturtle()
     random_x = random.randint(-300, 300)
     random_y = random.randint(300, 320)
@@ -107,13 +108,13 @@ def init_life_meter():
 
 
 wn = make_window("black", "Squares Everywhere!")
-shuttle = make_turtle("grey", 3, 5)
-asteroid = make_turtle("brown", 3, 1)
+shuttle = make_turtle("lightslategrey", 3, 5)
+asteroid = make_turtle("dimgray", 3, 1)
 logo_t = make_turtle("blue", 3, 3)
 logo_tu = make_turtle("blue", 3, 3)
-life_meter = make_turtle("blue", 3, 3)
+life_meter = make_turtle("lime", 3, 3)
 laser = make_turtle("red", 1, 5)
-life_word_display = make_turtle("blue", 3, 3)
+life_word_display = make_turtle("lime", 3, 3)
 DELTAX = 10
 
 
@@ -153,15 +154,17 @@ while True:
 
     if y_cor <= -300:
         asteroid_creator(asteroid)
+        life_meter.clear()
         life -= 1
     else:
-        asteroid.fd(1)
+        asteroid.fd(4)
 
     if life == 0:
         print("gameover")
+        life_meter.write("0", font=("Arial", 10, "normal"))
         break
 
     life_meter.write(life, font=("Arial", 10, "normal"))
 
 
-wn.mainloop()
+
