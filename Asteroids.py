@@ -77,33 +77,61 @@ def spaceship_moving_a():
     shuttle.setx(shuttle.xcor() - DELTAX)
 
 
-# logo(logo_t, logo_tu)
+def init_laser():
+    laser.pu()
+    laser.seth(90)
+    laser.sety(shuttle.ycor())
+    laser.sety(shuttle.ycor())
 
-wn = make_window("limegreen", "Squares Everywhere!")
-shuttle = make_turtle("blue", 3, 3)
-asteroid = make_turtle("blue", 3, 9)
+
+def spaceship_laser():
+    laser.hideturtle()
+    laser.setx(shuttle.xcor())
+    laser.setx(shuttle.xcor())
+    laser.sety(shuttle.ycor())
+    laser.sety(shuttle.ycor())
+    laser.showturtle()
+    laser.fd(1)
+
+
+wn = make_window("black", "Squares Everywhere!")
+shuttle = make_turtle("grey", 3, 3)
+asteroid = make_turtle("brown", 3, 1)
 logo_t = make_turtle("blue", 3, 3)
 logo_tu = make_turtle("blue", 3, 3)
 test = make_turtle("blue", 3, 3)
+laser = make_turtle("red", 1, 5)
 DELTAX = 20
 
+
+logo(logo_t, logo_tu)
 asteroid_creator(asteroid)
 shuttle_initialize(shuttle)
+init_laser()
 life = 3
 
-for i in range(2000):
+while True:
 
     wn.listen()
     wn.onkeypress(spaceship_moving_a, "a")
     wn.onkeypress(spaceship_moving_d, "d")
+    wn.onkeypress(spaceship_laser, "space")
 
     y_cor = asteroid.ycor()
+    y_cor_laser =  laser.ycor()
+    y_cor_shuttle = shuttle.ycor()
+    if y_cor_laser > y_cor_shuttle and y_cor_laser <= 300:
+        laser.fd(5)
+
+    else:
+        laser.hideturtle()
+
     if y_cor <= -300:
         asteroid_creator(asteroid)
         life -= 1
 
     else:
-        asteroid.fd(3)
+        asteroid.fd(1)
 
     if life == 0:
         print("gameover")
